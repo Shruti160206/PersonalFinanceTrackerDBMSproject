@@ -3,11 +3,33 @@
 {% block title %}Transactions{% endblock %}
 {% block page_title %}Transactions{% endblock %}
 
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/transactions.css') }}" />
+{% endblock %}
+
 {% block content %}
 
-<div style="margin-bottom:16px;">
+<div class="tx-actions">
+  <div class="tx-filters">
+    <!-- Type filter buttons -->
+    <div class="type-toggle">
+      <button class="type-btn active" data-type="all">All</button>
+      <button class="type-btn income"  data-type="income">↑ Income</button>
+      <button class="type-btn expense" data-type="expense">↓ Expense</button>
+    </div>
+
+    <!-- Category filter -->
+    <select class="select" id="catFilter" style="width:150px; padding:5px 28px 5px 10px; font-size:12px;">
+      <option value="">All Categories</option>
+      {% for cat in categories %}
+        <option value="{{ cat.category_id }}">{{ cat.category_name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
   <button class="btn btn-primary btn-sm" onclick="openModal('addTxModal')">+ Add Transaction</button>
 </div>
+
 
 <div class="tbl">
   <table>
@@ -23,7 +45,7 @@
     </thead>
     <tbody>
       {% for tx in transactions %}
-      <tr>
+      <tr data-type="{{ tx.type }}">
         <td style="color:var(--text3);">#{{ tx.transaction_id }}</td>
         <td>{{ tx.category_name }}</td>
         <td>
@@ -39,14 +61,26 @@
       </tr>
       {% else %}
       <tr>
-        <td colspan="6" style="text-align:center; color:var(--text3); padding:20px;">
-          No transactions found
-        </td>
+        <td colspan="6" style="text-align:center; color:var(--text3); padding:20px;">No transactions found</td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
 </div>
+
+{% if pagination is defined %}
+<div class="flex justify-between items-center" style="margin-top:14px;">
+  <p style="font-size:12px; color:var(--text3);">Page {{ pagination.page }} of {{ pagination.pages }}</p>
+  <div class="flex gap-8">
+    {% if pagination.has_prev %}
+      <a href="?page={{ pagination.prev_num }}" class="btn btn-outline btn-sm">← Prev</a>
+    {% endif %}
+    {% if pagination.has_next %}
+      <a href="?page={{ pagination.next_num }}" class="btn btn-outline btn-sm">Next →</a>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
 
 
 <!-- ADD TRANSACTION MODAL -->
@@ -58,7 +92,6 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
-
     <form method="POST" action="{{ url_for('add_transaction') }}">
       {{ form.hidden_tag() if form is defined }}
 
@@ -69,12 +102,10 @@
           <option value="expense">Expense</option>
         </select>
       </div>
-
       <div class="form-group">
         <label class="label">Amount (AED)</label>
         <input type="number" name="amount" class="input" placeholder="0.00" step="0.01" min="0.01" required />
       </div>
-
       <div class="form-group">
         <label class="label">Category</label>
         <select name="category_id" class="select" required>
@@ -83,7 +114,6 @@
           {% endfor %}
         </select>
       </div>
-
       <div class="form-group">
         <label class="label">Account</label>
         <select name="account_id" class="select" required>
@@ -92,10 +122,9 @@
           {% endfor %}
         </select>
       </div>
-
       <div class="form-group">
         <label class="label">Date</label>
-        <input type="date" name="transaction_date" class="input" id="tx_date" required />
+        <input type="date" name="transaction_date" id="tx_date" class="input" required />
       </div>
 
       <div class="modal-foot">
@@ -109,7 +138,5 @@
 {% endblock %}
 
 {% block scripts %}
-<script>
-  document.getElementById('tx_date').valueAsDate = new Date();
-</script>
+<script src="{{ url_for('static', filename='js/transactions.js') }}"></script>
 {% endblock %}
