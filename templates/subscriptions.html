@@ -3,6 +3,10 @@
 {% block title %}Subscriptions{% endblock %}
 {% block page_title %}Subscriptions{% endblock %}
 
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/subscriptions.css') }}">
+{% endblock %}
+
 {% block content %}
 
 <div class="tbl">
@@ -33,4 +37,8 @@
   </table>
 </div>
 
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/subscriptions.js') }}"></script>
 {% endblock %}

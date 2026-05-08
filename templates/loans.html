@@ -3,6 +3,10 @@
 {% block title %}Loans{% endblock %}
 {% block page_title %}Loans{% endblock %}
 
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/loans.css') }}">
+{% endblock %}
+
 {% block content %}
 
 <div class="tbl">
@@ -29,4 +33,8 @@
   </table>
 </div>
 
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/loans.js') }}"></script>
 {% endblock %}
