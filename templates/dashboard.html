@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<h4 style="margin-bottom:16px; color:var(--text2);">Account Summary</h4>
+
+<div class="tbl">
+  <table>
+    <thead>
+      <tr>
+        <th>Total Balance</th>
+        <th>Income This Month</th>
+        <th>Expenses This Month</th>
+        <th>Active Subscriptions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>AED {{ "{:,.2f}".format(total_balance) if total_balance is defined else "0.00" }}</td>
+        <td style="color:var(--green);">AED {{ "{:,.2f}".format(monthly_income) if monthly_income is defined else "0.00" }}</td>
+        <td style="color:var(--red);">AED {{ "{:,.2f}".format(monthly_expense) if monthly_expense is defined else "0.00" }}</td>
+        <td>{{ active_subs if active_subs is defined else 0 }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h4 style="margin:24px 0 16px; color:var(--text2);">Recent Transactions</h4>
+
+<div class="tbl">
+  <table>
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Type</th>
+        <th>Account</th>
+        <th>Date</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tx in recent_transactions %}
+      <tr>
+        <td>{{ tx.category_name }}</td>
+        <td>
+          <span class="badge {{ 'badge-green' if tx.type == 'income' else 'badge-red' }}">
+            {{ tx.type|capitalize }}
+          </span>
+        </td>
+        <td>{{ tx.account_type|capitalize }}</td>
+        <td>{{ tx.transaction_date.strftime('%d %b %Y') }}</td>
+        <td class="{{ 'pos' if tx.type == 'income' else 'neg' }}">
+          {{ '+' if tx.type == 'income' else '-' }}AED {{ "{:,.2f}".format(tx.amount) }}
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="5" style="text-align:center; color:var(--text3); padding:20px;">
+          No transactions yet
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<h4 style="margin:24px 0 16px; color:var(--text2);">Upcoming Subscription Renewals</h4>
+
+<div class="tbl">
+  <table>
+    <thead>
+      <tr>
+        <th>Service</th>
+        <th>Monthly Fee</th>
+        <th>Next Due</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for s in upcoming_subs %}
+      <tr>
+        <td>{{ s.service_name }}</td>
+        <td>AED {{ "{:,.2f}".format(s.monthly_fee) }}</td>
+        <td>{{ s.next_due_date.strftime('%d %b %Y') }}</td>
+        <td><span class="badge badge-blue">{{ s.status }}</span></td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="4" style="text-align:center; color:var(--text3); padding:20px;">
+          No upcoming renewals
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<h4 style="margin:24px 0 16px; color:var(--text2);">Pending Loan Installments</h4>
+
+<div class="tbl">
+  <table>
+    <thead>
+      <tr>
+        <th>Loan Type</th>
+        <th>Amount</th>
+        <th>Due Date</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for inst in pending_installments %}
+      <tr>
+        <td>{{ inst.loan_type }}</td>
+        <td class="neg">AED {{ "{:,.2f}".format(inst.amount) }}</td>
+        <td>{{ inst.due_date.strftime('%d %b %Y') }}</td>
+        <td><span class="badge badge-red">Pending</span></td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="4" style="text-align:center; color:var(--text3); padding:20px;">
+          No pending installments
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}
