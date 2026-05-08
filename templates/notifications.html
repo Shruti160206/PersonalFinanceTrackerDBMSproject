@@ -5,31 +5,32 @@
 
 {% block content %}
 
-<table class="table-custom">
-  <thead>
-    <tr>
-      <th>Message</th>
-      <th>Date</th>
-      <th>Status</th>
-    </tr>
-  </thead>
+<div class="tbl">
+  <table>
+    <thead>
+      <tr>
+        <th>Message</th>
+        <th>Date</th>
+        <th>Status</th>
+      </tr>
+    </thead>
 
-  <tbody>
-    {% for note in notifications %}
-    <tr>
-      <td>{{ note.message }}</td>
-      <td>{{ note.notification_date }}</td>
-      <td>
-        {% if note.is_read %}
-          <span class="status inactive">Read</span>
-        {% else %}
-          <span class="status active">Unread</span>
-        {% endif %}
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-
-</table>
+    <tbody>
+      {% for note in notifications %}
+      <tr>
+        <td>{{ note.message }}</td>
+        <td>{{ note.notification_date }}</td>
+        <td>
+          {% if note.is_read %}
+            <span class="status inactive">Read</span>
+          {% else %}
+            <span class="status active">Unread</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 
 {% endblock %}

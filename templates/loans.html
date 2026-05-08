@@ -5,27 +5,28 @@
 
 {% block content %}
 
-<table class="table-custom">
-  <thead>
-    <tr>
-      <th>Loan Type</th>
-      <th>Amount</th>
-      <th>Interest Rate</th>
-      <th>Start Date</th>
-    </tr>
-  </thead>
+<div class="tbl">
+  <table>
+    <thead>
+      <tr>
+        <th>Loan Type</th>
+        <th>Amount</th>
+        <th>Interest Rate</th>
+        <th>Start Date</th>
+      </tr>
+    </thead>
 
-  <tbody>
-    {% for loan in loans %}
-    <tr>
-      <td>{{ loan.loan_type }}</td>
-      <td>₹{{ loan.loan_amount }}</td>
-      <td>{{ loan.interest_rate }}%</td>
-      <td>{{ loan.start_date }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-
-</table>
+    <tbody>
+      {% for loan in loans %}
+      <tr>
+        <td>{{ loan.loan_type }}</td>
+        <td>AED {{ loan.loan_amount }}</td>
+        <td>{{ loan.interest_rate }}%</td>
+        <td>{{ loan.start_date }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 
 {% endblock %}
