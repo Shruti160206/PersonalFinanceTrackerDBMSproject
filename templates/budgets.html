@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}Budgets{% endblock %}
+{% block page_title %}Budgets{% endblock %}
+
+{% block content %}
+
+<div style="margin-bottom:16px;">
+  <button class="btn btn-primary btn-sm" onclick="openModal('addBudgetModal')">+ New Budget</button>
+</div>
+
+<div class="tbl">
+  <table>
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Month / Year</th>
+        <th>Limit</th>
+        <th>Spent</th>
+        <th>Remaining</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for b in budgets %}
+        {% set pct = ((b.spent / b.limit_amount) * 100)|int if b.limit_amount > 0 else 0 %}
+      <tr>
+        <td>{{ b.category_name }}</td>
+        <td style="color:var(--text3);">{{ '%02d'|format(b.month) }}/{{ b.year }}</td>
+        <td>AED {{ "{:,.2f}".format(b.limit_amount) }}</td>
+        <td class="{{ 'neg' if pct > 100 else '' }}">AED {{ "{:,.2f}".format(b.spent) }}</td>
+        <td class="{{ 'pos' if pct <= 100 else 'neg' }}">
+          AED {{ "{:,.2f}".format(b.limit_amount - b.spent) }}
+        </td>
+        <td>
+          {% if pct > 100 %}
+            <span class="badge badge-red">Over</span>
+          {% elif pct >= 80 %}
+            <span class="badge badge-orange">Warning</span>
+          {% else %}
+            <span class="badge badge-green">OK</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="6" style="text-align:center; color:var(--text3); padding:20px;">
+          No budgets set yet
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
+<!-- ADD BUDGET MODAL -->
+<div class="modal-overlay" id="addBudgetModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 class="modal-title">Set Budget</h2>
+      <button class="modal-close" onclick="closeModal('addBudgetModal')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <form method="POST" action="{{ url_for('add_budget') }}">
+      {{ form.hidden_tag() if form is defined }}
+
+      <div class="form-group">
+        <label class="label">Category</label>
+        <select name="category_id" class="select" required>
+          {% for cat in categories %}
+            <option value="{{ cat.category_id }}">{{ cat.category_name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="label">Spending Limit (AED)</label>
+        <input type="number" name="limit_amount" class="input" placeholder="0.00" step="0.01" min="0.01" required />
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="label">Month</label>
+          <select name="month" class="select" required>
+            {% for n, name in [(1,'January'),(2,'February'),(3,'March'),(4,'April'),(5,'May'),(6,'June'),(7,'July'),(8,'August'),(9,'September'),(10,'October'),(11,'November'),(12,'December')] %}
+              <option value="{{ n }}">{{ name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="label">Year</label>
+          <select name="year" class="select" required>
+            <option value="2025">2025</option>
+            <option value="2026" selected>2026</option>
+            <option value="2027">2027</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-foot">
+        <button type="button" class="btn btn-outline" onclick="closeModal('addBudgetModal')">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
