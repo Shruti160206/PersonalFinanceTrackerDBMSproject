@@ -3,8 +3,8 @@
 ## Clone the Repository
 
 ```bash
-git clone <repository-url>
-cd DBMSProjectFix
+git clone https://github.com/Shruti160206/PersonalFinanceTrackerDBMSproject.git
+cd PersonalFinanceTrackerDBMSproject
 ```
 
 ---
