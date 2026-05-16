@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from config import Config
 from extensions import db, bcrypt, migrate, login_manager
 from api import register_apis
@@ -18,10 +18,50 @@ def create_app():
     # Register APIs
     register_apis(app)
 
+    # ── HTML Routes ──
+    @app.route('/')
+    def index():
+        return render_template('index.html')
+
+    @app.route('/login')
+    def login():
+        return render_template('login.html')
+
+    @app.route('/register')
+    def register():
+        return render_template('register.html')
+
+    @app.route('/dashboard')
+    def dashboard():
+        return render_template('dashboard.html')
+
+    @app.route('/transactions')
+    def transactions():
+        return render_template('transactions.html')
+
+    @app.route('/budgets')
+    def budgets():
+        return render_template('budgets.html')
+
+    @app.route('/subscriptions')
+    def subscriptions():
+        return render_template('subscriptions.html')
+
+    @app.route('/loans')
+    def loans():
+        return render_template('loans.html')
+
+    @app.route('/notifications')
+    def notifications():
+        return render_template('notifications.html')
+
+    @app.route('/logout')
+    def logout():
+        return render_template('login.html')
+
     return app
 
 
-# 👇 THIS LINE IS THE KEY FIX
 app = create_app()
 
 
