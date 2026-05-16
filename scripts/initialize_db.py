@@ -6,7 +6,7 @@ import mysql.connector
 conn = mysql.connector.connect(
     host="localhost",
     user="root",          # change if needed
-    password="password"   # update password
+    password="latha200607"   # update password
 )
 
 cursor = conn.cursor()
