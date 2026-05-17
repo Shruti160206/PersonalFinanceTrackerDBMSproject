@@ -31,16 +31,6 @@ CREATE TABLE Users (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- ACCOUNTS
-CREATE TABLE Accounts (
-    account_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT NOT NULL,
-    account_type VARCHAR(20) NOT NULL,
-    balance DECIMAL(10,2) NOT NULL DEFAULT 0 CHECK (balance >= 0),
-    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
-    CHECK (account_type IN ('bank','wallet','cash'))
-);
-
 -- CATEGORIES
 CREATE TABLE TransactionCategories (
     category_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -51,28 +41,11 @@ CREATE TABLE TransactionCategories (
 CREATE TABLE Transactions (
     transaction_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT,
-    account_id INT,
     category_id INT,
     amount DECIMAL(10,2) CHECK (amount > 0),
-    transaction_type VARCHAR(10),
     transaction_date DATE,
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (account_id) REFERENCES Accounts(account_id) ON DELETE CASCADE,
     FOREIGN KEY (category_id) REFERENCES TransactionCategories(category_id),
-    CHECK (transaction_type IN ('income','expense'))
-);
-
--- SUBSCRIPTIONS
-CREATE TABLE Subscriptions (
-    subscription_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT NOT NULL,
-    service_name VARCHAR(50) NOT NULL,
-    monthly_fee DECIMAL(10,2) NOT NULL CHECK (monthly_fee > 0),
-    start_date DATE NOT NULL,
-    next_due_date DATE NOT NULL,
-    status VARCHAR(20) NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
-    CHECK (status IN ('Active','Inactive','Cancelled'))
 );
 
 -- BUDGETS
@@ -87,28 +60,6 @@ CREATE TABLE Budgets (
     FOREIGN KEY (category_id) REFERENCES TransactionCategories(category_id)
 );
 
--- LOANS
-CREATE TABLE Loans (
-    loan_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT NOT NULL,
-    loan_type VARCHAR(50) NOT NULL,
-    loan_amount DECIMAL(10,2) NOT NULL CHECK (loan_amount > 0),
-    interest_rate DECIMAL(5,2) NOT NULL CHECK (interest_rate >= 0),
-    start_date DATE NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
-);
-
--- INSTALLMENTS
-CREATE TABLE Installments (
-    installment_id INT PRIMARY KEY AUTO_INCREMENT,
-    loan_id INT NOT NULL,
-    amount DECIMAL(10,2) NOT NULL CHECK (amount > 0),
-    due_date DATE NOT NULL,
-    status VARCHAR(20) NOT NULL,
-    FOREIGN KEY (loan_id) REFERENCES Loans(loan_id) ON DELETE CASCADE,
-    CHECK (status IN ('Pending','Paid'))
-);
-
 -- NOTIFICATIONS
 CREATE TABLE Notifications (
     notification_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -118,6 +69,12 @@ CREATE TABLE Notifications (
     is_read BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
 );
+
+INSERT INTO TransactionCategories (category_name) VALUES ('Housing');
+
+INSERT INTO TransactionCategories (category_name) VALUES ('Food & Dining');
+
+INSERT INTO TransactionCategories (category_name) VALUES ('Transportation');
 """
 
 # =========================

@@ -11,11 +11,6 @@
 
 <div class="tx-actions">
   <div class="tx-filters">
-    <div class="type-toggle">
-      <button class="type-btn active" data-type="all">All</button>
-      <button class="type-btn income" data-type="income">↑ Income</button>
-      <button class="type-btn expense" data-type="expense">↓ Expense</button>
-    </div>
     <select class="select" id="catFilter" style="width:150px; padding:5px 28px 5px 10px; font-size:12px;">
       <option value="">All Categories</option>
       {% for cat in categories %}
@@ -32,10 +27,8 @@
       <tr>
         <th>#</th>
         <th>Category</th>
-        <th>Type</th>
-        <th>Account</th>
         <th>Date</th>
-        <th>Amount</th>
+        <th>Expense Amount</th>
       </tr>
     </thead>
     <tbody>
@@ -43,12 +36,6 @@
       <tr data-type="{{ tx.type }}">
         <td style="color:var(--text3);">#{{ tx.transaction_id }}</td>
         <td>{{ tx.category_name }}</td>
-        <td>
-          <span class="badge {{ 'badge-green' if tx.type == 'income' else 'badge-red' }}">
-            {{ tx.type|capitalize }}
-          </span>
-        </td>
-        <td>{{ tx.account_type|capitalize }}</td>
         <td style="color:var(--text3);">{{ tx.transaction_date.strftime('%d %b %Y') }}</td>
         <td class="{{ 'pos' if tx.type == 'income' else 'neg' }}">
           {{ '+' if tx.type == 'income' else '-' }}AED {{ "{:,.2f}".format(tx.amount) }}
@@ -93,13 +80,6 @@
       {{ form.hidden_tag() if form is defined }}
 
       <div class="form-group">
-        <label class="label">Type</label>
-        <select name="type" class="select" required>
-          <option value="income">Income</option>
-          <option value="expense">Expense</option>
-        </select>
-      </div>
-      <div class="form-group">
         <label class="label">Amount (AED)</label>
         <input type="number" name="amount" class="input" placeholder="0.00" step="0.01" min="0.01" required />
       </div>
@@ -108,14 +88,6 @@
         <select name="category_id" class="select" required>
           {% for cat in categories %}
           <option value="{{ cat.category_id }}">{{ cat.category_name }}</option>
-          {% endfor %}
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="label">Account</label>
-        <select name="account_id" class="select" required>
-          {% for acc in accounts %}
-          <option value="{{ acc.account_id }}">{{ acc.account_type|capitalize }}</option>
           {% endfor %}
         </select>
       </div>

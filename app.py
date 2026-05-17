@@ -51,16 +51,6 @@ def transactions():
 def budgets():
     return render_template('budgets.html')
 
-@app.route('/subscriptions')
-@login_required
-def subscriptions():
-    return render_template('subscriptions.html')
-
-@app.route('/loans')
-@login_required
-def loans():
-    return render_template('loans.html')
-
 @app.route('/notifications')
 @login_required
 def notifications():

@@ -13,20 +13,12 @@
 <p class="section-title">Account Summary</p>
 <div class="summary-row">
   <div class="summary-card">
-    <p class="label">Total Balance</p>
-    <p class="value">AED {{ "{:,.2f}".format(total_balance) if total_balance is defined else "0.00" }}</p>
-  </div>
-  <div class="summary-card">
-    <p class="label">Income This Month</p>
-    <p class="value pos">AED {{ "{:,.2f}".format(monthly_income) if monthly_income is defined else "0.00" }}</p>
-  </div>
-  <div class="summary-card">
     <p class="label">Expenses This Month</p>
     <p class="value neg">AED {{ "{:,.2f}".format(monthly_expense) if monthly_expense is defined else "0.00" }}</p>
   </div>
   <div class="summary-card">
-    <p class="label">Active Subscriptions</p>
-    <p class="value">{{ active_subs if active_subs is defined else 0 }}</p>
+    <p class="label">Number of Notifications this month</p>
+    <p class="value neg">{{ monthly_notification_count if monthly_notification_count else "0" }}</p>
   </div>
 </div>
 
@@ -61,64 +53,6 @@
       {% else %}
       <tr>
         <td colspan="5" style="text-align:center; color:var(--text3); padding:20px;">No transactions yet</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
-
-<!-- UPCOMING RENEWALS -->
-<p class="section-title">Upcoming Subscription Renewals</p>
-<div class="tbl">
-  <table>
-    <thead>
-      <tr>
-        <th>Service</th>
-        <th>Monthly Fee</th>
-        <th>Next Due</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for s in upcoming_subs %}
-      <tr>
-        <td>{{ s.service_name }}</td>
-        <td>AED {{ "{:,.2f}".format(s.monthly_fee) }}</td>
-        <td style="color:var(--text3);">{{ s.next_due_date.strftime('%d %b %Y') }}</td>
-        <td><span class="badge badge-blue">{{ s.status }}</span></td>
-      </tr>
-      {% else %}
-      <tr>
-        <td colspan="4" style="text-align:center; color:var(--text3); padding:20px;">No upcoming renewals</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
-
-<!-- PENDING INSTALLMENTS -->
-<p class="section-title">Pending Loan Installments</p>
-<div class="tbl">
-  <table>
-    <thead>
-      <tr>
-        <th>Loan Type</th>
-        <th>Amount</th>
-        <th>Due Date</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for inst in pending_installments %}
-      <tr>
-        <td>{{ inst.loan_type }}</td>
-        <td class="neg installment-amount">AED {{ "{:,.2f}".format(inst.amount) }}</td>
-        <td style="color:var(--text3);">{{ inst.due_date.strftime('%d %b %Y') }}</td>
-        <td><span class="badge badge-red">Pending</span></td>
-      </tr>
-      {% else %}
-      <tr>
-        <td colspan="4" style="text-align:center; color:var(--text3); padding:20px;">No pending installments</td>
       </tr>
       {% endfor %}
     </tbody>
