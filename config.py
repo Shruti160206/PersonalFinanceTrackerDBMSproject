@@ -1,6 +1,7 @@
 import os
 
 class Config:
+    SECRET_KEY = os.getenv("SECRET_KEY", "hash_secret")
     user = "root"
     password = os.getenv("DB_PASSWORD", "password")
     host = "localhost"

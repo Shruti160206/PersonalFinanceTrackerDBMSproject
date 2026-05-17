@@ -27,6 +27,7 @@ CREATE TABLE Users (
     last_name VARCHAR(50),
     email VARCHAR(100) NOT NULL UNIQUE,
     date_of_birth DATE,
+    password VARCHAR(255) NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 

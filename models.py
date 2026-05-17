@@ -1,8 +1,9 @@
 from extensions import db
 from datetime import datetime
+from flask_login import UserMixin
 
 # ---------------- USERS ---------------- #
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
     user_id = db.Column(db.Integer, primary_key=True)
@@ -10,7 +11,11 @@ class User(db.Model):
     last_name = db.Column(db.String(50))
     email = db.Column(db.String(100), unique=True, nullable=False)
     date_of_birth = db.Column(db.Date)
+    password = db.Column(db.String(255))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def get_id(self):
+        return str(self.user_id)
 
 
 # ---------------- ACCOUNTS ---------------- #

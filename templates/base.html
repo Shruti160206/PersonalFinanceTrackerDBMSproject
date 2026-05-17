@@ -102,11 +102,11 @@
       <!-- User chip at bottom -->
       <div class="sidebar-user">
         <div class="avatar">
-          {{ current_user.username[0].upper() if current_user.is_authenticated else 'U' }}
+          {{ current_user.email[0].upper() if current_user.is_authenticated else 'U' }}
         </div>
         <div class="user-info">
           <div class="user-name">
-            {{ current_user.username if current_user.is_authenticated else 'User' }}
+            {{ current_user.email if current_user.is_authenticated else 'User' }}
           </div>
           <div class="user-role">Personal Account</div>
         </div>

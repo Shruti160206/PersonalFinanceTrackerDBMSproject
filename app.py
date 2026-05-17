@@ -2,6 +2,8 @@ from flask import Flask, render_template
 from config import Config
 from extensions import db, bcrypt, migrate, login_manager
 from api import register_apis
+from models import User
+from flask_login import logout_user, login_required
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -35,31 +37,38 @@ def register():
     return render_template('register.html')
 
 @app.route('/dashboard')
+@login_required
 def dashboard():
     return render_template('dashboard.html')
 
 @app.route('/transactions')
+@login_required
 def transactions():
     return render_template('transactions.html')
 
 @app.route('/budgets')
+@login_required
 def budgets():
     return render_template('budgets.html')
 
 @app.route('/subscriptions')
+@login_required
 def subscriptions():
     return render_template('subscriptions.html')
 
 @app.route('/loans')
+@login_required
 def loans():
     return render_template('loans.html')
 
 @app.route('/notifications')
+@login_required
 def notifications():
     return render_template('notifications.html')
 
 @app.route('/logout')
 def logout():
+    logout_user()
     return render_template('login.html')
 
 if __name__ == '__main__':

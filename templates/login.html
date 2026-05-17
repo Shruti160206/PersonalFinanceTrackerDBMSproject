@@ -7,6 +7,55 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
 {% endblock %}
 
+<!-- {% block scripts  %} -->
+<script>
+const form = document.getElementById("loginForm");
+
+form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const formData = {
+        email: document.querySelector("[name='email']").value,
+        password: document.querySelector("[name='password']").value
+    };
+
+    const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+    });
+
+    const data = await response.json();
+
+    const msgBox = document.getElementById("message-box");
+
+    if (response.ok) {
+        // success
+        msgBox.innerHTML = `
+            <div class="flash-message flash-success">
+                ${data.message || "Login successful"}
+            </div>
+        `;
+
+        // redirect to dashboard
+        setTimeout(() => {
+            window.location.href = "/dashboard";
+        }, 800);
+
+    } else {
+        // error
+        msgBox.innerHTML = `
+            <div class="flash-message flash-error">
+                ${data.error || "Invalid credentials"}
+            </div>
+        `;
+    }
+});
+</script>
+<!-- {% endblock %} -->
+
 {% block content %}
 <div class="auth-container">
   <div class="auth-title">
@@ -14,7 +63,11 @@
     <p>Sign in to access your Personal Finance Tracker</p>
   </div>
   <div class="form-container">
-    <form method="POST" action="{{ url_for('login') }}" class="form-box">
+    
+    <form id="loginForm" class="form-box">
+      
+      <div id="message-box"></div>
+      
       <div class="input-group">
         <label>Email</label>
         <input type="email" name="email" placeholder="Enter your email" required>
@@ -25,7 +78,7 @@
         <input type="password" name="password" placeholder="Enter your password" required>
       </div>
 
-      <button type="submit" class="btn">
+      <button id="loginButton" type="submit" class="btn">
         Login
       </button>
 
@@ -33,7 +86,9 @@
         Not registered?
         <a href="{{ url_for('register') }}">Create an account here</a>
       </div>
+
     </form>
+
   </div>
 </div>
 

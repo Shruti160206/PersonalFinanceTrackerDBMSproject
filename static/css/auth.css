@@ -162,3 +162,28 @@
     color: #33d4ff;
     text-decoration: underline;
 }
+
+#message-box {
+    margin-bottom: 12px;
+}
+
+.flash-message {
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* success */
+.flash-success {
+    background: rgba(0, 230, 118, 0.1);
+    color: var(--green);
+    border: 1px solid rgba(0, 230, 118, 0.2);
+}
+
+/* error */
+.flash-error {
+    background: rgba(255, 71, 87, 0.1);
+    color: var(--red);
+    border: 1px solid rgba(255, 71, 87, 0.2);
+}
