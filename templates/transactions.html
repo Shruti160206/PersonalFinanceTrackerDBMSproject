@@ -88,7 +88,7 @@
         </svg>
       </button>
     </div>
-    <form method="POST" action="{{ url_for('add_transaction') }}">
+    <form method="POST" action="{{ url_for('transactions') }}">
       {{ form.hidden_tag() if form is defined }}
 
       <div class="form-group">

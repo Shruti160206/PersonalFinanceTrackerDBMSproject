@@ -25,6 +25,7 @@
       Fin<span>Track</span>
     </div>
 
+    {% if current_user.is_authenticated %}
     <nav>
       <p class="nav-section">Main</p>
 
@@ -100,6 +101,7 @@
         <div class="user-role">Personal Account</div>
       </div>
     </div>
+    {% endif %}
 
   </aside>
   <!-- /SIDEBAR -->

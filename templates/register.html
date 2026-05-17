@@ -4,11 +4,15 @@
 {% block page_title %}Register{% endblock %}
 
 {% block styles %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
 {% endblock %}
 
 {% block content %}
-
+<div class="auth-container">
+  <div class="auth-title">
+    <h1>Register</h1>
+    <p>Sign up to start using Personal Finance Tracker</p>
+  </div>
 <div class="form-container">
 
   <form method="POST" action="{{ url_for('register') }}" class="form-box">
@@ -57,8 +61,14 @@
       Register
     </button>
 
+    <div class="auth-footer">
+      Already Registered?
+      <a href="{{ url_for('login') }}">Login here</a>
+    </div>
+
   </form>
 
+</div>
 </div>
 
 {% endblock %}

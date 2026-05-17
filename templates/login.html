@@ -4,41 +4,47 @@
 {% block page_title %}Login{% endblock %}
 
 {% block styles %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
 {% endblock %}
 
 {% block content %}
+<div class="auth-container">
+  <div class="auth-title">
+    <h1>Login</h1>
+    <p>Sign in to access your Personal Finance Tracker</p>
+  </div>
+  <div class="form-container">
+    <form method="POST" action="{{ url_for('login') }}" class="form-box">
+      <div class="input-group">
+        <label>Email</label>
+        <input 
+          type="email" 
+          name="email" 
+          placeholder="Enter your email"
+          required
+        >
+      </div>
 
-<div class="form-container">
+      <div class="input-group">
+        <label>Password</label>
+        <input 
+          type="password" 
+          name="password" 
+          placeholder="Enter your password"
+          required
+        >
+      </div>
 
-  <form method="POST" action="{{ url_for('login') }}" class="form-box">
+      <button type="submit" class="btn">
+        Login
+      </button>
 
-    <div class="input-group">
-      <label>Email</label>
-      <input 
-        type="email" 
-        name="email" 
-        placeholder="Enter your email"
-        required
-      >
-    </div>
-
-    <div class="input-group">
-      <label>Password</label>
-      <input 
-        type="password" 
-        name="password" 
-        placeholder="Enter your password"
-        required
-      >
-    </div>
-
-    <button type="submit" class="btn">
-      Login
-    </button>
-
-  </form>
-
+      <div class="auth-footer">
+        Not registered?
+        <a href="{{ url_for('register') }}">Create an account here</a>
+      </div>
+    </form>
+  </div>
 </div>
 
 {% endblock %}
