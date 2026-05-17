@@ -12,13 +12,15 @@
 <div class="budget-controls">
   <form method="GET" class="month-select">
     <select name="month" class="select" style="width:130px; font-size:13px;">
-      {% for n, name in [(1,'January'),(2,'February'),(3,'March'),(4,'April'),(5,'May'),(6,'June'),(7,'July'),(8,'August'),(9,'September'),(10,'October'),(11,'November'),(12,'December')] %}
-        <option value="{{ n }}" {{ 'selected' if selected_month is defined and selected_month == n }}>{{ name }}</option>
+      {% for n, name in
+      [(1,'January'),(2,'February'),(3,'March'),(4,'April'),(5,'May'),(6,'June'),(7,'July'),(8,'August'),(9,'September'),(10,'October'),(11,'November'),(12,'December')]
+      %}
+      <option value="{{ n }}" {{ 'selected' if selected_month is defined and selected_month==n }}>{{ name }}</option>
       {% endfor %}
     </select>
     <select name="year" class="select" style="width:95px; font-size:13px;">
       {% for y in [2024, 2025, 2026] %}
-        <option value="{{ y }}" {{ 'selected' if selected_year is defined and selected_year == y }}>{{ y }}</option>
+      <option value="{{ y }}" {{ 'selected' if selected_year is defined and selected_year==y }}>{{ y }}</option>
       {% endfor %}
     </select>
   </form>
@@ -39,7 +41,7 @@
     </thead>
     <tbody>
       {% for b in budgets %}
-        {% set pct = ((b.spent / b.limit_amount) * 100)|int if b.limit_amount > 0 else 0 %}
+      {% set pct = ((b.spent / b.limit_amount) * 100)|int if b.limit_amount > 0 else 0 %}
       <tr>
         <td>{{ b.category_name }}</td>
         <td style="color:var(--text3);">{{ '%02d'|format(b.month) }}/{{ b.year }}</td>
@@ -48,11 +50,11 @@
         <td class="{{ 'pos' if pct <= 100 else 'neg' }}">AED {{ "{:,.2f}".format(b.limit_amount - b.spent) }}</td>
         <td>
           {% if pct > 100 %}
-            <span class="badge badge-red status-over">Over</span>
+          <span class="badge badge-red status-over">Over</span>
           {% elif pct >= 80 %}
-            <span class="badge badge-orange status-warn">Warning</span>
+          <span class="badge badge-orange status-warn">Warning</span>
           {% else %}
-            <span class="badge badge-green status-ok">OK</span>
+          <span class="badge badge-green status-ok">OK</span>
           {% endif %}
         </td>
       </tr>
@@ -72,7 +74,8 @@
       <h2 class="modal-title">Set Budget</h2>
       <button class="modal-close" onclick="closeModal('addBudgetModal')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
         </svg>
       </button>
     </div>
@@ -83,7 +86,7 @@
         <label class="label">Category</label>
         <select name="category_id" class="select" required>
           {% for cat in categories %}
-            <option value="{{ cat.category_id }}">{{ cat.category_name }}</option>
+          <option value="{{ cat.category_id }}">{{ cat.category_name }}</option>
           {% endfor %}
         </select>
       </div>
@@ -95,8 +98,10 @@
         <div class="form-group">
           <label class="label">Month</label>
           <select name="month" class="select" required>
-            {% for n, name in [(1,'January'),(2,'February'),(3,'March'),(4,'April'),(5,'May'),(6,'June'),(7,'July'),(8,'August'),(9,'September'),(10,'October'),(11,'November'),(12,'December')] %}
-              <option value="{{ n }}">{{ name }}</option>
+            {% for n, name in
+            [(1,'January'),(2,'February'),(3,'March'),(4,'April'),(5,'May'),(6,'June'),(7,'July'),(8,'August'),(9,'September'),(10,'October'),(11,'November'),(12,'December')]
+            %}
+            <option value="{{ n }}">{{ name }}</option>
             {% endfor %}
           </select>
         </div>

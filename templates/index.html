@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,83 +9,89 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
 </head>
+
 <body>
 
-<!-- NAVBAR -->
-<div style="height:60px; background:var(--surface); border-bottom:1px solid var(--border); display:flex; align-items:center; padding:0 32px; gap:12px;">
-  <div style="display:flex; align-items:center; gap:10px; margin-right:auto;">
-    <div class="logo-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="12" y1="1" x2="12" y2="23"/>
-        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-      </svg>
+  <!-- NAVBAR -->
+  <div
+    style="height:60px; background:var(--surface); border-bottom:1px solid var(--border); display:flex; align-items:center; padding:0 32px; gap:12px;">
+    <div style="display:flex; align-items:center; gap:10px; margin-right:auto;">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+          stroke-linejoin="round">
+          <line x1="12" y1="1" x2="12" y2="23" />
+          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+        </svg>
+      </div>
+      <span style="font-size:17px; font-weight:700;">Fin<span style="color:var(--accent);">Track</span></span>
     </div>
-    <span style="font-size:17px; font-weight:700;">Fin<span style="color:var(--accent);">Track</span></span>
+    <a href="{{ url_for('login') }}" class="btn btn-outline btn-sm">Log in</a>
+    <a href="{{ url_for('register') }}" class="btn btn-primary btn-sm">Get started</a>
   </div>
-  <a href="{{ url_for('login') }}"    class="btn btn-outline btn-sm">Log in</a>
-  <a href="{{ url_for('register') }}" class="btn btn-primary btn-sm">Get started</a>
-</div>
 
-<!-- HERO -->
-<div style="max-width:600px; margin:80px auto; text-align:center; padding:0 24px;">
-  <h1 style="font-size:42px; font-weight:800; line-height:1.1; letter-spacing:-1.5px; margin-bottom:16px;">
-    Your money,<br><span style="color:var(--accent);">fully in view</span>
-  </h1>
-  <p style="font-size:15px; color:var(--text2); line-height:1.7; margin-bottom:32px;">
-    Track transactions, monitor subscriptions, manage budgets and loans — all from one dashboard.
-  </p>
-  <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
-    <a href="{{ url_for('register') }}" class="btn btn-primary" style="padding:11px 24px; font-size:14px;">Create free account</a>
-    <a href="{{ url_for('login') }}"    class="btn btn-outline" style="padding:11px 24px; font-size:14px;">Log in</a>
+  <!-- HERO -->
+  <div style="max-width:600px; margin:80px auto; text-align:center; padding:0 24px;">
+    <h1 style="font-size:42px; font-weight:800; line-height:1.1; letter-spacing:-1.5px; margin-bottom:16px;">
+      Your money,<br><span style="color:var(--accent);">fully in view</span>
+    </h1>
+    <p style="font-size:15px; color:var(--text2); line-height:1.7; margin-bottom:32px;">
+      Track transactions, monitor subscriptions, manage budgets and loans — all from one dashboard.
+    </p>
+    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+      <a href="{{ url_for('register') }}" class="btn btn-primary" style="padding:11px 24px; font-size:14px;">Create free
+        account</a>
+      <a href="{{ url_for('login') }}" class="btn btn-outline" style="padding:11px 24px; font-size:14px;">Log in</a>
+    </div>
   </div>
-</div>
 
-<!-- FEATURES TABLE -->
-<div style="max-width:900px; margin:0 auto 80px; padding:0 24px;">
-  <div class="tbl">
-    <table>
-      <thead>
-        <tr>
-          <th>Feature</th>
-          <th>What it does</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="font-weight:600; color:var(--accent);">📊 Dashboard</td>
-          <td style="color:var(--text2);">See your balance, income, expenses and upcoming payments at a glance.</td>
-        </tr>
-        <tr>
-          <td style="font-weight:600; color:var(--green);">💳 Transactions</td>
-          <td style="color:var(--text2);">Log every income and expense. Filter by category, type and date.</td>
-        </tr>
-        <tr>
-          <td style="font-weight:600; color:var(--purple);">📦 Subscriptions</td>
-          <td style="color:var(--text2);">Track all recurring services and never miss a renewal date.</td>
-        </tr>
-        <tr>
-          <td style="font-weight:600; color:var(--orange);">⏱ Budgets</td>
-          <td style="color:var(--text2);">Set monthly spending limits per category and get alerted when exceeded.</td>
-        </tr>
-        <tr>
-          <td style="font-weight:600; color:var(--red);">🏦 Loans</td>
-          <td style="color:var(--text2);">Monitor outstanding loans and track pending installment payments.</td>
-        </tr>
-        <tr>
-          <td style="font-weight:600; color:var(--accent);">🔔 Notifications</td>
-          <td style="color:var(--text2);">Get alerts for budget overruns, due subscriptions and loan payments.</td>
-        </tr>
-      </tbody>
-    </table>
+  <!-- FEATURES TABLE -->
+  <div style="max-width:900px; margin:0 auto 80px; padding:0 24px;">
+    <div class="tbl">
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>What it does</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:600; color:var(--accent);">📊 Dashboard</td>
+            <td style="color:var(--text2);">See your balance, income, expenses and upcoming payments at a glance.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600; color:var(--green);">💳 Transactions</td>
+            <td style="color:var(--text2);">Log every income and expense. Filter by category, type and date.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600; color:var(--purple);">📦 Subscriptions</td>
+            <td style="color:var(--text2);">Track all recurring services and never miss a renewal date.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600; color:var(--orange);">⏱ Budgets</td>
+            <td style="color:var(--text2);">Set monthly spending limits per category and get alerted when exceeded.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600; color:var(--red);">🏦 Loans</td>
+            <td style="color:var(--text2);">Monitor outstanding loans and track pending installment payments.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600; color:var(--accent);">🔔 Notifications</td>
+            <td style="color:var(--text2);">Get alerts for budget overruns, due subscriptions and loan payments.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
 
-<!-- FOOTER -->
-<div style="border-top:1px solid var(--border); padding:20px 32px; display:flex; justify-content:space-between; font-size:12px; color:var(--text3);">
-  <span>© 2026 FinTrack. All rights reserved.</span>
-  <span>Personal Finance Tracker Project</span>
-</div>
+  <!-- FOOTER -->
+  <div
+    style="border-top:1px solid var(--border); padding:20px 32px; display:flex; justify-content:space-between; font-size:12px; color:var(--text3);">
+    <span>© 2026 FinTrack. All rights reserved.</span>
+    <span>Personal Finance Tracker Project</span>
+  </div>
 
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
+
 </html>
