@@ -1,13 +1,10 @@
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 class Config:
     SECRET_KEY = os.getenv("SECRET_KEY", "your_secret_key_here")
 
     user = "root"
-    password = "latha200607"
+    password = os.getenv("DB_PASSWORD", "password")
     host = "localhost"
     port = 3306
     database_name = "userfinancetracker"

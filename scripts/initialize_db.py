@@ -1,4 +1,5 @@
 import mysql.connector
+import os
 
 # =========================
 # CONNECT TO MYSQL SERVER
@@ -6,7 +7,7 @@ import mysql.connector
 conn = mysql.connector.connect(
     host="localhost",
     user="root",          # change if needed
-    password="latha200607"   # update password
+    password=os.getenv("DB_PASSWORD", "password")
 )
 
 cursor = conn.cursor()
