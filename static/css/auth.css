@@ -174,14 +174,12 @@
     font-weight: 500;
 }
 
-/* success */
 .flash-success {
     background: rgba(0, 230, 118, 0.1);
     color: var(--green);
     border: 1px solid rgba(0, 230, 118, 0.2);
 }
 
-/* error */
 .flash-error {
     background: rgba(255, 71, 87, 0.1);
     color: var(--red);

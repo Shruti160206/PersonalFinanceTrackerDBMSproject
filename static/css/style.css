@@ -30,12 +30,8 @@ a { text-decoration: none; color: inherit; }
 button { font-family: inherit; cursor: pointer; }
 input, select, textarea { font-family: inherit; }
 
-/* ════════════════════════════
-   LAYOUT
-════════════════════════════ */
 .app { display: flex; min-height: 100vh; }
 
-/* ── Sidebar ── */
 .sidebar {
   width: var(--sidebar);
   background: var(--surface);
@@ -149,7 +145,6 @@ nav {
 .user-name  { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .user-role  { font-size: 11px; color: var(--text3); }
 
-/* ── Main area ── */
 .main {
   margin-left: var(--sidebar);
   flex: 1;
@@ -158,7 +153,6 @@ nav {
   min-height: 100vh;
 }
 
-/* ── Topbar ── */
 .topbar {
   height: 60px;
   background: var(--surface);
@@ -219,12 +213,8 @@ nav {
   background: var(--red); border-radius: 50%;
 }
 
-/* ── Page content ── */
 .content { flex: 1; padding: 24px; }
 
-/* ════════════════════════════
-   CARDS
-════════════════════════════ */
 .card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -235,16 +225,10 @@ nav {
 .card-sub   { font-size: 11px; color: var(--text3); }
 .card-head  { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
 
-/* ════════════════════════════
-   GRID HELPERS
-════════════════════════════ */
 .grid-2    { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .grid-3    { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
 .grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 14px; }
 
-/* ════════════════════════════
-   TABLE
-════════════════════════════ */
 .tbl { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: 13px; }
 thead tr  { border-bottom: 1px solid var(--border); }
@@ -262,9 +246,6 @@ tbody tr:last-child { border: none; }
 tbody tr:hover { background: rgba(255,255,255,.02); }
 td { padding: 12px; color: var(--text1); vertical-align: middle; }
 
-/* ════════════════════════════
-   BADGES
-════════════════════════════ */
 .badge {
   display: inline-flex; align-items: center;
   padding: 3px 8px;
@@ -277,9 +258,6 @@ td { padding: 12px; color: var(--text1); vertical-align: middle; }
 .badge-blue   { background: rgba(0,198,255,.12);   color: var(--accent);}
 .badge-purple { background: rgba(156,111,255,.12); color: var(--purple);}
 
-/* ════════════════════════════
-   BUTTONS
-════════════════════════════ */
 .btn {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 8px 14px;
@@ -302,9 +280,6 @@ td { padding: 12px; color: var(--text1); vertical-align: middle; }
 .btn-danger { background: rgba(255,71,87,.12); color: var(--red); border: 1px solid rgba(255,71,87,.2); }
 .btn-danger:hover { background: var(--red); color: #fff; }
 
-/* ════════════════════════════
-   FORMS
-════════════════════════════ */
 .form-group { margin-bottom: 15px; }
 .label {
   display: block;
@@ -372,9 +347,6 @@ option { background: var(--card); }
 .eye-btn:hover { color: var(--text1); }
 .eye-btn svg { width: 15px; height: 15px; }
 
-/* ════════════════════════════
-   PROGRESS BAR
-════════════════════════════ */
 .progress {
   height: 5px;
   background: var(--surface);
@@ -391,9 +363,6 @@ option { background: var(--card); }
 .progress-bar.o { background: var(--orange); }
 .progress-bar.p { background: var(--purple); }
 
-/* ════════════════════════════
-   FILTER CHIPS
-════════════════════════════ */
 .filters {
   display: flex; align-items: center;
   gap: 8px; margin-bottom: 18px;
@@ -419,9 +388,6 @@ option { background: var(--card); }
 }
 .filters-end { margin-left: auto; display: flex; gap: 8px; }
 
-/* ════════════════════════════
-   MODAL
-════════════════════════════ */
 .modal-overlay {
   position: fixed; inset: 0;
   background: rgba(0,0,0,.7);
@@ -469,9 +435,6 @@ option { background: var(--card); }
   border-top: 1px solid var(--border);
 }
 
-/* ════════════════════════════
-   FLASH MESSAGES
-════════════════════════════ */
 .flash {
   display: flex; align-items: center; gap: 8px;
   padding: 10px 14px;
@@ -485,9 +448,6 @@ option { background: var(--card); }
 .flash-info    { background: rgba(0,198,255,.1);  color: var(--accent); border: 1px solid rgba(0,198,255,.2); }
 .flash-warning { background: rgba(255,165,2,.1);  color: var(--orange); border: 1px solid rgba(255,165,2,.2); }
 
-/* ════════════════════════════
-   AUTH PAGES
-════════════════════════════ */
 .auth-wrap {
   min-height: 100vh;
   background: var(--bg);
@@ -529,15 +489,9 @@ option { background: var(--card); }
 .check-row input { accent-color: var(--accent); cursor: pointer; }
 .check-row a { color: var(--accent); }
 
-/* ════════════════════════════
-   AMOUNT COLORS
-════════════════════════════ */
 .pos { color: var(--green); font-weight: 700; }
 .neg { color: var(--red);   font-weight: 700; }
 
-/* ════════════════════════════
-   UTILITIES
-════════════════════════════ */
 .w-full        { width: 100%; }
 .flex          { display: flex; }
 .items-center  { align-items: center; }
@@ -551,9 +505,6 @@ option { background: var(--card); }
 .text-accent   { color: var(--accent); }
 .divider       { height: 1px; background: var(--border); margin: 16px 0; }
 
-/* ════════════════════════════
-   RESPONSIVE
-════════════════════════════ */
 @media (max-width: 768px) {
   .sidebar {
     transform: translateX(-240px);
@@ -571,4 +522,13 @@ option { background: var(--card); }
   .auth-box { padding: 24px 18px; }
   .search { display: none; }
   .form-row { grid-template-columns: 1fr; }
+}
+
+.delete-btn {
+    border:1px solid #dc2626;
+    color:#dc2626;
+    background:transparent;
+    padding:4px 10px;
+    border-radius:6px;
+    cursor:pointer;
 }

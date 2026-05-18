@@ -11,11 +11,20 @@
 
 <div class="tx-actions">
   <div class="tx-filters">
-    <select class="select" id="catFilter" style="width:150px; padding:5px 28px 5px 10px; font-size:12px;">
-      <option value="">All Categories</option>
+    <select class="select" id="catFilter" onchange="window.location.href='?category_id=' + this.value"
+      style="width:150px; padding:5px 28px 5px 10px; font-size:12px;">
+
+      <option value="" {% if not request.args.get('category_id') %} selected {% endif %}>
+        All Categories
+      </option>
+
       {% for cat in categories %}
-      <option value="{{ cat.category_id }}">{{ cat.category_name }}</option>
+      <option value="{{ cat.category_id }}" {% if request.args.get('category_id')|int==cat.category_id %} selected {%
+        endif %}>
+        {{ cat.category_name }}
+      </option>
       {% endfor %}
+
     </select>
   </div>
   <button class="btn btn-primary btn-sm" onclick="openModal('addTxModal')">+ Add Transaction</button>
@@ -29,21 +38,26 @@
         <th>Category</th>
         <th>Date</th>
         <th>Expense Amount</th>
+        <th>Actions</th>
       </tr>
     </thead>
+
     <tbody>
       {% for tx in transactions %}
-      <tr data-type="{{ tx.type }}">
-        <td style="color:var(--text3);">#{{ tx.transaction_id }}</td>
-        <td>{{ tx.category_name }}</td>
-        <td style="color:var(--text3);">{{ tx.transaction_date.strftime('%d %b %Y') }}</td>
-        <td class="{{ 'pos' if tx.type == 'income' else 'neg' }}">
-          {{ '+' if tx.type == 'income' else '-' }}AED {{ "{:,.2f}".format(tx.amount) }}
-        </td>
-      </tr>
-      {% else %}
       <tr>
-        <td colspan="6" style="text-align:center; color:var(--text3); padding:20px;">No transactions found</td>
+        <td>#{{ tx.transaction_id }}</td>
+        <td>{{ tx.category_name }}</td>
+        <td>{{ tx.transaction_date.strftime('%d %b %Y') }}</td>
+        <td>AED {{ "{:,.2f}".format(tx.amount) }}</td>
+
+        <td>
+          <button
+            class="delete-btn btn btn-outline btn-sm delete-transaction-btn"
+            data-transaction-id="{{ tx.transaction_id }}"
+          >
+            Delete
+          </button>
+        </td>
       </tr>
       {% endfor %}
     </tbody>
@@ -76,16 +90,17 @@
         </svg>
       </button>
     </div>
-    <form method="POST" action="{{ url_for('transactions') }}">
+    <form id="transactionForm">
       {{ form.hidden_tag() if form is defined }}
 
+      <div id="txMessageBox" class="form-message"></div>
       <div class="form-group">
         <label class="label">Amount (AED)</label>
         <input type="number" name="amount" class="input" placeholder="0.00" step="0.01" min="0.01" required />
       </div>
       <div class="form-group">
         <label class="label">Category</label>
-        <select name="category_id" class="select" required>
+        <select name="category_id" id="categorySelect" class="select" required>
           {% for cat in categories %}
           <option value="{{ cat.category_id }}">{{ cat.category_name }}</option>
           {% endfor %}

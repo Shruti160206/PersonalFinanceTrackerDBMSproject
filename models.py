@@ -20,10 +20,16 @@ class User(db.Model, UserMixin):
 
 # ---------------- TRANSACTION CATEGORY ---------------- #
 class TransactionCategory(db.Model):
-    __tablename__ = 'transaction_categories'
+    __tablename__ = 'transactioncategories'
 
     category_id = db.Column(db.Integer, primary_key=True)
     category_name = db.Column(db.String(50), nullable=False)
+
+    def to_dict(self):
+        return {
+            "category_id": self.category_id,
+            "category_name": self.category_name
+        }
 
 
 # ---------------- TRANSACTIONS ---------------- #
@@ -32,9 +38,8 @@ class Transaction(db.Model):
 
     transaction_id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    category_id = db.Column(db.Integer, db.ForeignKey('transaction_categories.category_id'))
+    category_id = db.Column(db.Integer, db.ForeignKey('transactioncategories.category_id'))
     amount = db.Column(db.Float, nullable=False)
-    transaction_type = db.Column(db.String(10))  # income/expense
     transaction_date = db.Column(db.Date, default=datetime.utcnow)
 
 
@@ -44,7 +49,7 @@ class Budget(db.Model):
 
     budget_id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    category_id = db.Column(db.Integer, db.ForeignKey('transaction_categories.transaction_id'))
+    category_id = db.Column(db.Integer, db.ForeignKey('transactioncategories.category_id'))
     limit_amount = db.Column(db.Float)
     month = db.Column(db.Integer)
     year = db.Column(db.Integer)

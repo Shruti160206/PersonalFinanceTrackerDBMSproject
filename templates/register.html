@@ -7,61 +7,6 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
 {% endblock %}
 
-<!-- {% block scripts  %} -->
-<script>
-  document.getElementById("registerForm").addEventListener("submit", async function (e) {
-    e.preventDefault(); // stop normal form submit
-
-    console.log("clicked submit button");
-
-    const formData = {
-        first_name: document.querySelector("[name='first_name']").value,
-        last_name: document.querySelector("[name='last_name']").value,
-        email: document.querySelector("[name='email']").value,
-        date_of_birth: document.querySelector("[name='date_of_birth']").value,
-        password: document.querySelector("[name='password']").value,
-        confirm_password: document.querySelector("[name='confirm_password']").value
-    };
-
-    console.log(formData)
-
-    const response = await fetch("/api/register", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData)
-    });
-
-    const data = await response.json();
-
-    const msgBox = document.getElementById("message-box");
-
-    if (response.ok) {
-        // success message
-        msgBox.innerHTML = `
-            <div class="flash-message flash-success">
-                ${data.message || "User created successfully"}
-            </div>
-        `;
-
-        // redirect after short delay
-        setTimeout(() => {
-            window.location.href = "/login";
-        }, 800);
-
-    } else {
-        // error message
-        msgBox.innerHTML = `
-            <div class="flash-message flash-error">
-                ${data.error || "Something went wrong"}
-            </div>
-        `;
-    }
-});
-</script>
-<!-- {% endblock %} -->
-
 {% block content %}
 <div class="auth-container">
   <div class="auth-title">
@@ -118,4 +63,8 @@
   </div>
 </div>
 
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/register.js') }}"></script>
 {% endblock %}

@@ -29,25 +29,17 @@
     <thead>
       <tr>
         <th>Category</th>
-        <th>Type</th>
-        <th>Account</th>
         <th>Date</th>
-        <th>Amount</th>
+        <th>Expense Amount</th>
       </tr>
     </thead>
     <tbody>
       {% for tx in recent_transactions %}
       <tr>
         <td>{{ tx.category_name }}</td>
-        <td>
-          <span class="badge {{ 'badge-green' if tx.type == 'income' else 'badge-red' }}">
-            {{ tx.type|capitalize }}
-          </span>
-        </td>
-        <td>{{ tx.account_type|capitalize }}</td>
         <td style="color:var(--text3);">{{ tx.transaction_date.strftime('%d %b %Y') }}</td>
-        <td class="{{ 'pos' if tx.type == 'income' else 'neg' }}">
-          {{ '+' if tx.type == 'income' else '-' }}AED {{ "{:,.2f}".format(tx.amount) }}
+        <td>
+          AED {{ "{:,.2f}".format(tx.amount) }}
         </td>
       </tr>
       {% else %}
